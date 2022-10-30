@@ -35,14 +35,12 @@ function QuestionDetailPage() {
       <Head>
         <title>{question.question}</title>
       </Head>
-      <main>
-        <section>
-          <h1>{question.question}</h1>
-        </section>
-        <section>
-          <p>{question.id}</p>
-        </section>
-      </main>
+      <section>
+        <h1>{question.question}</h1>
+      </section>
+      <section>
+        <p>{question.id}</p>
+      </section>
     </>
   )
 }
