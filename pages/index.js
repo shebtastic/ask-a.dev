@@ -2,10 +2,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import useSWR from 'swr'
 
-import { fakeFetcher } from '../helpers/api'
+import { fetcher } from '../helpers/api'
 
 function LandingPage() {
-  const { data: questions, error } = useSWR('/api/questions', fakeFetcher)
+  const { data: questions, error } = useSWR('/api/questions', fetcher)
 
   return (
     <>

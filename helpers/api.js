@@ -26,7 +26,9 @@ function getQuestionById(id) {
 }
 
 function fetcher(url) {
-  console.warn(url)
+  if (!url) return
+
+  return fetch(url).then((res) => res.json())
 }
 
 function fakeFetcher(url) {
