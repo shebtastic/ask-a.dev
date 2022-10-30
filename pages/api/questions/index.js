@@ -1,6 +1,7 @@
 import Cors from 'cors'
 
 import { fakeFetcher } from '../../../helpers/api'
+import { getQuestions } from '../../../helpers/db'
 
 function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
@@ -22,7 +23,8 @@ async function runCors(req, res) {
 async function handler(req, res) {
   await runCors(req, res)
 
-  res.status(200).json(fakeFetcher(req.url))
+  const questions = await getQuestions()
+  res.status(200).json(questions)
 }
 
 export default handler
