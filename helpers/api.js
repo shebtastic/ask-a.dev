@@ -31,6 +31,13 @@ function fetcher(url) {
   return fetch(url).then((res) => res.json())
 }
 
+async function sendQuestion(question) {
+  return fetch('/api/questions', {
+    method: 'POST',
+    body: JSON.stringify({ question }),
+  }).then((res) => res.json())
+}
+
 function fakeFetcher(url) {
   if (!url) return
 
@@ -45,4 +52,4 @@ function fakeFetcher(url) {
 }
 
 export default questions
-export { fetcher, fakeFetcher }
+export { fetcher, fakeFetcher, sendQuestion }
