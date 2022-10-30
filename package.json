@@ -9,7 +9,7 @@
     "test:watch": "jest",
     "test": "jest --watch",
     "lint": "next lint",
-    "prettier": "prettier"
+    "prettier": "prettier --ignore-path .gitignore --write ."
   },
   "dependencies": {
     "next": "13.0.0",
