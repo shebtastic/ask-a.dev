@@ -33,4 +33,14 @@ async function getQuestions() {
   return Question.find({}, { id: true, question: true, _id: false })
 }
 
-export { getQuestions, addQuestion }
+async function getQuestionById(id) {
+  await connectMongoose()
+  const question = await Question.findOne(
+    { id },
+    { id: true, question: true, _id: false },
+  )
+  console.log(question)
+  return question
+}
+
+export { getQuestions, addQuestion, getQuestionById }

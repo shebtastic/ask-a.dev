@@ -2,16 +2,13 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-import { fakeFetcher } from '../../../helpers/api'
+import { fetcher } from '../../../helpers/api'
 
 function QuestionDetailPage() {
   const router = useRouter()
   const { id } = router.query
 
-  const { data: question = {}, error } = useSWR(
-    `/api/questions/${id}`,
-    fakeFetcher,
-  )
+  const { data: question = {}, error } = useSWR(`/api/questions/${id}`, fetcher)
 
   return (
     <>
