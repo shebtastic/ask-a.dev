@@ -1,6 +1,3 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-
 const questions = [
   {
     id: 'EF370F87-338F-47F2-AD2C-7CB23F3B9669',
@@ -20,29 +17,30 @@ const questions = [
   },
 ]
 
+function getQuestions() {
+  return questions
+}
+
 function getQuestionById(id) {
   return questions.find((question) => question.id === id)
 }
 
-function QuestionDetailPage() {
-  const router = useRouter()
-  const { id } = router.query
-
-  const question = getQuestionById(id) ?? {}
-
-  return (
-    <>
-      <Head>
-        <title>{question.question}</title>
-      </Head>
-      <section>
-        <h1>{question.question}</h1>
-      </section>
-      <section>
-        <p>{question.id}</p>
-      </section>
-    </>
-  )
+function fetcher(url) {
+  console.warn(url)
 }
 
-export default QuestionDetailPage
+function fakeFetcher(url) {
+  if (!url) return
+
+  switch (true) {
+    case '/api/questions' === url:
+      return getQuestions()
+    case url?.startsWith('/api/questions/'):
+      return getQuestionById(url.split('/').at(-1))
+    default:
+      throw new Error('unmapped request')
+  }
+}
+
+export default questions
+export { fetcher, fakeFetcher }

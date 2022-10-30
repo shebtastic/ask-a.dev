@@ -1,26 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import useSWR from 'swr'
 
-const questions = [
-  {
-    id: 'EF370F87-338F-47F2-AD2C-7CB23F3B9669',
-    question: 'test?',
-  },
-  {
-    id: 'B8AE42B9-5C0E-4336-A998-614A6A7249B9',
-    question: 'y tho?',
-  },
-  {
-    id: 'E3EB7364-CD78-4CC1-B616-C5CF588E3304',
-    question: 'Is this the real life?',
-  },
-  {
-    id: 'A997467E-E083-482C-B25C-B72B603CECC4',
-    question: 'Is this just fantasy?',
-  },
-]
+import { fakeFetcher } from '../helpers/api'
 
 function LandingPage() {
+  const { data: questions, error } = useSWR('/api/questions', fakeFetcher)
+
   return (
     <>
       <Head>
@@ -36,9 +22,9 @@ function LandingPage() {
       </section>
       <section>
         <ul>
-          {questions.map(({ id, question }) => (
+          {questions?.map(({ id, question }) => (
             <li key={id}>
-              <Link href={`/question/${id}`}>{question}</Link>
+              <Link href={`/questions/${id}`}>{question}</Link>
             </li>
           ))}
         </ul>
