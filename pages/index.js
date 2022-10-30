@@ -3,12 +3,9 @@ import Link from 'next/link'
 import useSWR from 'swr'
 
 import { fetcher, sendQuestion } from '../helpers/api'
-import { useState } from 'react'
+import AddQuestion from '../components/AddQuestion'
 
 function LandingPage() {
-  const [isAddOpen, setIsAddOpen] = useState(false)
-  const [questionInput, setQuestionInput] = useState('')
-
   const { data: questions, error, mutate } = useSWR('/api/questions', fetcher)
 
   return (
@@ -32,30 +29,12 @@ function LandingPage() {
             </li>
           ))}
           <li>
-            {isAddOpen ? (
-              <>
-                <button onClick={() => setIsAddOpen(false)}>x</button>
-                <form
-                  onSubmit={async (event) => {
-                    event.preventDefault()
-
-                    await sendQuestion(questionInput)
-
-                    setQuestionInput('')
-                    setIsAddOpen(false)
-                    await mutate()
-                  }}
-                >
-                  <textarea
-                    value={questionInput}
-                    onChange={(event) => setQuestionInput(event.target.value)}
-                  />
-                  <button type="submit">Send question.</button>
-                </form>
-              </>
-            ) : (
-              <button onClick={() => setIsAddOpen(true)}>+</button>
-            )}
+            <AddQuestion
+              onAddQuestion={async (question) => {
+                await sendQuestion(question)
+                await mutate()
+              }}
+            />
           </li>
         </ul>
       </section>
