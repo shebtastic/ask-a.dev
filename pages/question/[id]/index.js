@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const questions = [
   {
@@ -20,33 +20,31 @@ const questions = [
   },
 ]
 
-function LandingPage() {
+function getQuestionById(id) {
+  return questions.find((question) => question.id === id)
+}
+
+function QuestionDetailPage() {
+  const router = useRouter()
+  const { id } = router.query
+
+  const question = getQuestionById(id) ?? {}
+
   return (
     <>
       <Head>
-        <title>Ask away!</title>
+        <title>{question.question}</title>
       </Head>
       <main>
         <section>
-          <h1>Ask a dev!</h1>
-          <p>
-            Feel free to browse or ask any question while your identity stays
-            stealthy and hidden.
-          </p>
-          <aside>🥷Like a freakin' ninja!</aside>
+          <h1>{question.question}</h1>
         </section>
         <section>
-          <ul>
-            {questions.map(({ id, question }) => (
-              <li key={id}>
-                <Link href={`/question/${id}`}>{question}</Link>
-              </li>
-            ))}
-          </ul>
+          <p>{question.id}</p>
         </section>
       </main>
     </>
   )
 }
 
-export default LandingPage
+export default QuestionDetailPage
