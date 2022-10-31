@@ -45,6 +45,12 @@ async function sendAnswer(questionId, answer, submitter = 'Anonymous') {
   }).then((res) => res.json())
 }
 
+async function closeQuestion(questionId) {
+  return fetch(`/api/questions/${questionId}/close`, {
+    method: 'POST',
+  }).then((res) => res.json())
+}
+
 function fakeFetcher(url) {
   if (!url) return
 
@@ -59,4 +65,4 @@ function fakeFetcher(url) {
 }
 
 export default questions
-export { fetcher, fakeFetcher, sendQuestion, sendAnswer }
+export { fetcher, fakeFetcher, sendQuestion, sendAnswer, closeQuestion }

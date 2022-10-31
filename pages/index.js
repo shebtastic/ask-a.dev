@@ -24,26 +24,30 @@ function LandingPage() {
       </section>
       <section>
         <ul>
-          {questions?.map(({ id, question, submitter, submissionDate }) => (
-            <li key={id}>
-              <Link href={`/questions/${id}`}>
-                <p>{question}</p>
-                <span>{submitter}</span>
-                <span>{submissionDate}</span>
-              </Link>
-            </li>
-          ))}
-          <li>
-            <AddQuestionOrAnswer
-              onAdd={async (question) => {
-                const item = getItem()
-                await sendQuestion(question, item?.name)
-                await mutate()
-              }}
-              buttonText="Send question."
-            />
-          </li>
+          {questions?.map(
+            ({ id, question, submitter, submissionDate, closed }) => (
+              <li key={id}>
+                <Link href={`/questions/${id}`}>
+                  <p>
+                    <span>{closed && '✅'}</span>
+                    {question}
+                    <span>{closed && ' - Closed.'}</span>
+                  </p>
+                  <span>{submitter}</span>
+                  <span>{submissionDate}</span>
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
+        <AddQuestionOrAnswer
+          onAdd={async (question) => {
+            const item = getItem()
+            await sendQuestion(question, item?.name)
+            await mutate()
+          }}
+          buttonText="Send question."
+        />
       </section>
     </>
   )

@@ -25,23 +25,21 @@ const questionSchema = new Schema({
       type: answerSchema,
     },
   ],
+  closed: Boolean,
 })
 const Question = models.Question || model('Question', questionSchema)
 
-const projectionWithAnswers = {
-  id: true,
-  question: true,
-  submitter: true,
-  submissionDate: true,
-  answers: true,
-  _id: false,
-}
 const projectionWithoutAnswers = {
   id: true,
   question: true,
   submitter: true,
   submissionDate: true,
+  closed: true,
   _id: false,
+}
+const projectionWithAnswers = {
+  ...projectionWithoutAnswers,
+  answers: true,
 }
 function projectDBObject(object, projection = projectionWithAnswers) {
   const projected = {}
@@ -61,6 +59,7 @@ async function addQuestion(question, submitter) {
     submitter,
     submissionDate: new Date().toISOString(),
     answers: [],
+    closed: false,
   })
   const createdQuestionObject = createdQuestion.toObject()
   return projectDBObject(createdQuestionObject)
@@ -73,8 +72,7 @@ async function getQuestions() {
 
 async function getQuestionById(id) {
   await connectMongoose()
-  const question = await Question.findOne({ id }, projectionWithAnswers)
-  return question
+  return Question.findOne({ id }, projectionWithAnswers)
 }
 
 async function addAnswer(questionId, answer, submitter) {
@@ -93,4 +91,13 @@ async function addAnswer(questionId, answer, submitter) {
   return getQuestionById(questionId)
 }
 
-export { getQuestions, addQuestion, getQuestionById, addAnswer }
+async function closeQuestion(questionId) {
+  await connectMongoose()
+
+  console.log(
+    await Question.updateOne({ id: questionId }, { $set: { closed: true } }),
+  )
+  return getQuestionById(questionId)
+}
+
+export { getQuestions, addQuestion, getQuestionById, addAnswer, closeQuestion }

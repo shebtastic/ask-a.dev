@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-import { fetcher, sendAnswer } from '../../../helpers/api'
+import { closeQuestion, fetcher, sendAnswer } from '../../../helpers/api'
 import AddQuestionOrAnswer from '../../../components/AddQuestionOrAnswer'
 import { getItem } from '../../../helpers/storage'
 import { BackLink } from '../../../components/NavBar'
@@ -39,18 +39,25 @@ function QuestionDetailPage() {
               </>
             ),
           )}
-          <li>
-            <AddQuestionOrAnswer
-              onAdd={async (answer) => {
-                const item = getItem()
-                await sendAnswer(question.id, answer, item?.name)
-                await mutate()
-              }}
-              buttonText="Send answer."
-            />
-          </li>
         </ul>
       </section>
+      {question.closed ? (
+        'Closed thread.'
+      ) : (
+        <>
+          <AddQuestionOrAnswer
+            onAdd={async (answer) => {
+              const item = getItem()
+              await sendAnswer(question.id, answer, item?.name)
+              await mutate()
+            }}
+            buttonText="Send answer."
+          />
+          <button onClick={() => closeQuestion(question.id)}>
+            Close thread.
+          </button>
+        </>
+      )}
     </>
   )
 }
