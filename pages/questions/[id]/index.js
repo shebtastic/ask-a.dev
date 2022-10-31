@@ -26,9 +26,17 @@ function QuestionDetailPage() {
       </section>
       <section>
         <ul>
-          {question?.answers?.map((answer) => (
-            <li key={answer.id}>{answer.answer}</li>
-          ))}
+          {question?.answers?.map(
+            ({ id, answer, submitter, submissionDate }) => (
+              <>
+                <li key={id}>
+                  <p>{answer}</p>
+                  <span>{submitter}</span>
+                  <span>{submissionDate}</span>
+                </li>
+              </>
+            ),
+          )}
           <li>
             <AddQuestionOrAnswer
               onAdd={async (answer) => {

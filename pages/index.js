@@ -24,9 +24,13 @@ function LandingPage() {
       </section>
       <section>
         <ul>
-          {questions?.map(({ id, question }) => (
+          {questions?.map(({ id, question, submitter, submissionDate }) => (
             <li key={id}>
-              <Link href={`/questions/${id}`}>{question}</Link>
+              <Link href={`/questions/${id}`}>
+                <p>{question}</p>
+                <span>{submitter}</span>
+                <span>{submissionDate}</span>
+              </Link>
             </li>
           ))}
           <li>
