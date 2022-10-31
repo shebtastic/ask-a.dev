@@ -19,7 +19,7 @@ function LandingPage() {
           Feel free to browse or ask any question while your identity stays
           stealthy and hidden.
         </p>
-        <aside>🥷Like a freakin' ninja!</aside>
+        <aside>{"🥷Like a freakin' ninja!"}</aside>
       </section>
       <section>
         <ul>
