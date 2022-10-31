@@ -1,9 +1,13 @@
-function Layout({ children }) {
+import NavBar from './NavBar'
+
+function Layout({ children, location }) {
   return (
     <>
       <header></header>
       <main>{children}</main>
-      <footer></footer>
+      <footer>
+        <NavBar location={location} />
+      </footer>
     </>
   )
 }

@@ -2,10 +2,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-import { fetcher, sendAnswer, sendQuestion } from '../../../helpers/api'
+import { fetcher, sendAnswer } from '../../../helpers/api'
 import AddQuestionOrAnswer from '../../../components/AddQuestionOrAnswer'
-import { localStorageKey } from '../../settings'
 import { getItem } from '../../../helpers/storage'
+import { BackLink } from '../../../components/NavBar'
 
 function QuestionDetailPage() {
   const router = useRouter()
@@ -24,6 +24,7 @@ function QuestionDetailPage() {
       </Head>
       <section>
         <h1>{question.question}</h1>
+        <BackLink />
       </section>
       <section>
         <ul>
