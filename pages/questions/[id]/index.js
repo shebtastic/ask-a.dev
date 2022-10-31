@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { fetcher, sendAnswer, sendQuestion } from '../../../helpers/api'
 import AddQuestionOrAnswer from '../../../components/AddQuestionOrAnswer'
 import { localStorageKey } from '../../settings'
+import { getItem } from '../../../helpers/storage'
 
 function QuestionDetailPage() {
   const router = useRouter()
@@ -40,17 +41,9 @@ function QuestionDetailPage() {
           <li>
             <AddQuestionOrAnswer
               onAdd={async (answer) => {
-                const json = localStorage.getItem(localStorageKey)
-                try {
-                  let item
-                  if (json !== null) {
-                    item = JSON.parse(json)
-                  }
-                  await sendAnswer(question.id, answer, item?.name)
-                  await mutate()
-                } catch (error) {
-                  console.error(error)
-                }
+                const item = getItem()
+                await sendAnswer(question.id, answer, item?.name)
+                await mutate()
               }}
               buttonText="Send answer."
             />

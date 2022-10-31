@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
+import { getItem, nuke, setItem } from '../../helpers/storage'
 
-const localStorageKey = 'ask-a-dev-name'
+const initialState = {
+  name: '',
+  isAnonymous: true,
+}
 
 function Settings() {
-  const [storage, setStorage] = useState({
-    name: '',
-    isAnonymous: true,
-  })
+  const [storage, setStorage] = useState(initialState)
 
   useEffect(() => {
     if (window) {
-      const item = localStorage.getItem(localStorageKey)
+      const item = getItem()
 
       if (item !== null) {
-        setStorage(JSON.parse(item))
+        setStorage(item)
       }
     }
   }, [])
@@ -30,7 +31,7 @@ function Settings() {
         name,
       }
 
-      localStorage.setItem(localStorageKey, JSON.stringify(newStorage))
+      setItem(newStorage)
 
       return newStorage
     })
@@ -43,7 +44,7 @@ function Settings() {
         isAnonymous: !storage.isAnonymous,
       }
 
-      localStorage.setItem(localStorageKey, JSON.stringify(newStorage))
+      setItem(newStorage)
 
       return newStorage
     })
@@ -66,13 +67,17 @@ function Settings() {
           checked={storage.isAnonymous ? 'on' : undefined}
           onChange={toggleAnonymous}
         />
-        <button onClick={() => localStorage.clear()}>
-          Nuke LocalStorage! 💣
-        </button>
       </form>
+      <button
+        onClick={() => {
+          nuke()
+          setStorage(initialState)
+        }}
+      >
+        Nuke LocalStorage! 💣
+      </button>
     </>
   )
 }
 
 export default Settings
-export { localStorageKey }
