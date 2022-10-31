@@ -64,7 +64,7 @@ function Settings() {
         />
         <input
           type="checkbox"
-          checked={storage.isAnonymous ? 'on' : undefined}
+          checked={storage.isAnonymous ? 'on' : false}
           onChange={toggleAnonymous}
         />
       </form>
