@@ -19,7 +19,11 @@ function QuestionDetailPage() {
         <h1>{question.question}</h1>
       </section>
       <section>
-        <p>{question.id}</p>
+        <ul>
+          {question.answers.map((answer) => (
+            <li key={answer.id}>{answer.answer}</li>
+          ))}
+        </ul>
       </section>
     </>
   )
