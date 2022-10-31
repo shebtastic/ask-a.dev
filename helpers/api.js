@@ -38,6 +38,13 @@ async function sendQuestion(question) {
   }).then((res) => res.json())
 }
 
+async function sendAnswer(questionId, answer) {
+  return fetch(`/api/questions/${questionId}/answers`, {
+    method: 'POST',
+    body: JSON.stringify({ answer }),
+  }).then((res) => res.json())
+}
+
 function fakeFetcher(url) {
   if (!url) return
 
@@ -52,4 +59,4 @@ function fakeFetcher(url) {
 }
 
 export default questions
-export { fetcher, fakeFetcher, sendQuestion }
+export { fetcher, fakeFetcher, sendQuestion, sendAnswer }

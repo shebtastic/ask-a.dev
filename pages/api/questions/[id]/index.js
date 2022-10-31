@@ -1,23 +1,5 @@
-import Cors from 'cors'
-
 import { getQuestionById } from '../../../../helpers/db'
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
-
-const cors = Cors()
-async function runCors(req, res) {
-  return await runMiddleware(req, res, cors)
-}
+import { runCors } from '../index'
 
 async function handler(req, res) {
   await runCors(req, res)

@@ -25,13 +25,18 @@ const questionSchema = new Schema({
 })
 const Question = models.Question || model('Question', questionSchema)
 
-const projection = { id: true, question: true, answers: true, _id: false }
+const projectionWithAnswers = {
+  id: true,
+  question: true,
+  answers: true,
+  _id: false,
+}
 const projectionWithoutAnswers = {
   id: true,
   question: true,
   _id: false,
 }
-function projectDBObject(object, projection = projection) {
+function projectDBObject(object, projection = projectionWithAnswers) {
   const projected = {}
   for (const key of Object.keys(projection)) {
     if (projection[key]) {
@@ -59,7 +64,7 @@ async function getQuestions() {
 
 async function getQuestionById(id) {
   await connectMongoose()
-  const question = await Question.findOne({ id }, projection)
+  const question = await Question.findOne({ id }, projectionWithAnswers)
   return question
 }
 
@@ -70,12 +75,11 @@ async function addAnswer(questionId, answer) {
     id: crypto.randomUUID(),
     answer,
   })
-  const updatedQuestion = await Question.updateOne(
+  await Question.updateOne(
     { id: questionId },
     { $push: { answers: createdAnswer } },
   )
-  const updatedQuestionObject = updatedQuestion.toObject()
-  return projectDBObject(updatedQuestionObject)
+  return getQuestionById(questionId)
 }
 
 export { getQuestions, addQuestion, getQuestionById, addAnswer }

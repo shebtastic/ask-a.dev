@@ -38,6 +38,7 @@ async function handler(req, res) {
         const question = await addQuestion(payload.question)
         res.status(200).send(question)
       } catch (error) {
+        console.error(error)
         res.status(400).send()
       }
       break
@@ -48,3 +49,4 @@ async function handler(req, res) {
 }
 
 export default handler
+export { runCors }

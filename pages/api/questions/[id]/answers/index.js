@@ -1,23 +1,5 @@
-import Cors from 'cors'
-
 import { addAnswer } from '../../../../../helpers/db'
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
-
-const cors = Cors()
-async function runCors(req, res) {
-  return await runMiddleware(req, res, cors)
-}
+import { runCors } from '../../index'
 
 async function handler(req, res) {
   await runCors(req, res)
@@ -35,6 +17,7 @@ async function handler(req, res) {
         const question = await addAnswer(id, payload.answer)
         res.status(200).send(question)
       } catch (error) {
+        console.error(error)
         res.status(400).send()
       }
       break

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function AddQuestion({ onAddQuestion }) {
+function AddQuestionOrAnswer({ onAdd, buttonText }) {
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [questionInput, setQuestionInput] = useState('')
 
@@ -13,7 +13,7 @@ function AddQuestion({ onAddQuestion }) {
             onSubmit={(event) => {
               event.preventDefault()
 
-              onAddQuestion(questionInput)
+              onAdd(questionInput)
 
               setQuestionInput('')
               setIsAddOpen(false)
@@ -23,7 +23,7 @@ function AddQuestion({ onAddQuestion }) {
               value={questionInput}
               onChange={(event) => setQuestionInput(event.target.value)}
             />
-            <button type="submit">Send question.</button>
+            <button type="submit">{buttonText}</button>
           </form>
         </>
       ) : (
@@ -33,4 +33,4 @@ function AddQuestion({ onAddQuestion }) {
   )
 }
 
-export default AddQuestion
+export default AddQuestionOrAnswer

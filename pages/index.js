@@ -3,7 +3,7 @@ import Link from 'next/link'
 import useSWR from 'swr'
 
 import { fetcher, sendQuestion } from '../helpers/api'
-import AddQuestion from '../components/AddQuestion'
+import AddQuestionOrAnswer from '../components/AddQuestionOrAnswer'
 
 function LandingPage() {
   const { data: questions, error, mutate } = useSWR('/api/questions', fetcher)
@@ -29,11 +29,12 @@ function LandingPage() {
             </li>
           ))}
           <li>
-            <AddQuestion
-              onAddQuestion={async (question) => {
+            <AddQuestionOrAnswer
+              onAdd={async (question) => {
                 await sendQuestion(question)
                 await mutate()
               }}
+              buttonText="Send question."
             />
           </li>
         </ul>
