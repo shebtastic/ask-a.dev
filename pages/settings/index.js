@@ -63,7 +63,7 @@ function Settings() {
         />
         <input
           type="checkbox"
-          checked={storage.isAnonymous}
+          checked={storage.isAnonymous ? 'on' : undefined}
           onChange={toggleAnonymous}
         />
         <button onClick={() => localStorage.clear()}>
@@ -75,3 +75,4 @@ function Settings() {
 }
 
 export default Settings
+export { localStorageKey }

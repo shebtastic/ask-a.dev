@@ -2,8 +2,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-import { fetcher, sendAnswer } from '../../../helpers/api'
+import { fetcher, sendAnswer, sendQuestion } from '../../../helpers/api'
 import AddQuestionOrAnswer from '../../../components/AddQuestionOrAnswer'
+import { localStorageKey } from '../../settings'
 
 function QuestionDetailPage() {
   const router = useRouter()
@@ -31,8 +32,17 @@ function QuestionDetailPage() {
           <li>
             <AddQuestionOrAnswer
               onAdd={async (answer) => {
-                await sendAnswer(question.id, answer)
-                await mutate()
+                const json = localStorage.getItem(localStorageKey)
+                try {
+                  let item
+                  if (json !== null) {
+                    item = JSON.parse(json)
+                  }
+                  await sendAnswer(question.id, answer, item?.name)
+                  await mutate()
+                } catch (error) {
+                  console.error(error)
+                }
               }}
               buttonText="Send answer."
             />

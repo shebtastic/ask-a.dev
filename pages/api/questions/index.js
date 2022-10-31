@@ -32,10 +32,14 @@ async function handler(req, res) {
       try {
         const payload = JSON.parse(req.body)
         const keys = Object.keys(payload)
-        if (keys.length !== 1 || keys[0] !== 'question') {
+        if (
+          keys.length !== 2 ||
+          !keys.includes('question') ||
+          !keys.includes('submitter')
+        ) {
           throw new Error()
         }
-        const question = await addQuestion(payload.question)
+        const question = await addQuestion(payload.question, payload.submitter)
         res.status(200).send(question)
       } catch (error) {
         console.error(error)

@@ -31,17 +31,17 @@ function fetcher(url) {
   return fetch(url).then((res) => res.json())
 }
 
-async function sendQuestion(question) {
+async function sendQuestion(question, submitter = 'Anonymous') {
   return fetch('/api/questions', {
     method: 'POST',
-    body: JSON.stringify({ question }),
+    body: JSON.stringify({ question, submitter }),
   }).then((res) => res.json())
 }
 
-async function sendAnswer(questionId, answer) {
+async function sendAnswer(questionId, answer, submitter = 'Anonymous') {
   return fetch(`/api/questions/${questionId}/answers`, {
     method: 'POST',
-    body: JSON.stringify({ answer }),
+    body: JSON.stringify({ answer, submitter }),
   }).then((res) => res.json())
 }
 
