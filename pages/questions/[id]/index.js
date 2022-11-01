@@ -6,6 +6,7 @@ import { closeQuestion, fetcher, sendAnswer } from '../../../helpers/api'
 import AddQuestionOrAnswer from '../../../components/AddQuestionOrAnswer'
 import { getItem } from '../../../helpers/storage'
 import { BackLink } from '../../../components/NavBar'
+import Card from '../../../components/Card'
 
 function QuestionDetailPage() {
   const router = useRouter()
@@ -31,9 +32,11 @@ function QuestionDetailPage() {
           {question?.answers?.map(
             ({ id, answer, submitter, submissionDate }) => (
               <li key={id}>
-                <p>{answer}</p>
-                <span>{submitter}</span>
-                <span>{new Date(submissionDate).toLocaleString()}</span>
+                <Card>
+                  <h2>{answer}</h2>
+                  <span>{submitter}</span>
+                  <span>{new Date(submissionDate).toLocaleString()}</span>
+                </Card>
               </li>
             ),
           )}

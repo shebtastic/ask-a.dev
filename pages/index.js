@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { fetcher, sendQuestion } from '../helpers/api'
 import AddQuestionOrAnswer from '../components/AddQuestionOrAnswer'
 import { getItem } from '../helpers/storage'
+import Card from '../components/Card'
 
 function LandingPage() {
   const { data: questions, error, mutate } = useSWR('/api/questions', fetcher)
@@ -28,13 +29,14 @@ function LandingPage() {
             ({ id, question, submitter, submissionDate, closed }) => (
               <li key={id}>
                 <Link href={`/questions/${id}`}>
-                  <p>
-                    <span>{closed && '✅'}</span>
-                    {question}
-                    <span>{closed && ' - Closed.'}</span>
-                  </p>
-                  <span>{submitter}</span>
-                  <span>{new Date(submissionDate).toLocaleString()}</span>
+                  <Card
+                    closed={closed}
+                    open={!closed}
+                  >
+                    <h2>{question}</h2>
+                    <span>{submitter}</span>
+                    <span>{new Date(submissionDate).toLocaleString()}</span>
+                  </Card>
                 </Link>
               </li>
             ),
