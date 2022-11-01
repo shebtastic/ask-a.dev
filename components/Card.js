@@ -8,7 +8,7 @@ const StyledCard = styled.div`
           grid-template-columns: repeat(3, 1fr);
           grid-template-areas:
             'title title title'
-            '. . .'
+            '. child .'
             'submitter . submitterDate';
         `
       : css`
@@ -20,6 +20,7 @@ const StyledCard = styled.div`
   padding: 2rem 1.5rem;
   margin: 3rem 1rem;
   min-height: 10rem;
+  min-width: 30em;
   max-width: 50em;
   border-radius: 2.2rem;
   box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
@@ -67,6 +68,10 @@ const StyledCard = styled.div`
     place-items: end;
     align-items: flex-end;
     text-align: end;
+  }
+
+  & > div {
+    grid-area: child;
   }
 `
 

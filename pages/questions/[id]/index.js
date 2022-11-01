@@ -46,22 +46,28 @@ function QuestionDetailPage() {
         'Closed thread.'
       ) : (
         <>
-          <AddQuestionOrAnswer
-            onAdd={async (answer) => {
-              const item = getItem()
-              await sendAnswer(question.id, answer, item?.name)
-              await mutate()
-            }}
-            buttonText="Send answer."
-          />
-          <button
-            onClick={async () => {
-              await closeQuestion(question.id)
-              await mutate()
-            }}
-          >
-            Close thread.
-          </button>
+          <Card>
+            <AddQuestionOrAnswer
+              onAdd={async (answer) => {
+                const item = getItem()
+                await sendAnswer(question.id, answer, item?.name)
+                await mutate()
+              }}
+              buttonText="Send answer."
+            />
+          </Card>
+          <Card>
+            <div>
+              <button
+                onClick={async () => {
+                  await closeQuestion(question.id)
+                  await mutate()
+                }}
+              >
+                Close thread.
+              </button>
+            </div>
+          </Card>
         </>
       )}
     </>

@@ -5,7 +5,7 @@ function AddQuestionOrAnswer({ onAdd, buttonText = 'Send.' }) {
   const [questionInput, setQuestionInput] = useState('')
 
   return (
-    <>
+    <div>
       {isAddOpen ? (
         <>
           <button
@@ -41,7 +41,7 @@ function AddQuestionOrAnswer({ onAdd, buttonText = 'Send.' }) {
           +
         </button>
       )}
-    </>
+    </div>
   )
 }
 

@@ -42,14 +42,16 @@ function LandingPage() {
             ),
           )}
         </ul>
-        <AddQuestionOrAnswer
-          onAdd={async (question) => {
-            const item = getItem()
-            await sendQuestion(question, item?.name)
-            await mutate()
-          }}
-          buttonText="Send question."
-        />
+        <Card>
+          <AddQuestionOrAnswer
+            onAdd={async (question) => {
+              const item = getItem()
+              await sendQuestion(question, item?.name)
+              await mutate()
+            }}
+            buttonText="Send question."
+          />
+        </Card>
       </section>
     </>
   )
