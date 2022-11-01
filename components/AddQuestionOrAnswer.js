@@ -8,7 +8,12 @@ function AddQuestionOrAnswer({ onAdd, buttonText }) {
     <>
       {isAddOpen ? (
         <>
-          <button onClick={() => setIsAddOpen(false)}>x</button>
+          <button
+            aria-label="close submission form"
+            onClick={() => setIsAddOpen(false)}
+          >
+            x
+          </button>
           <form
             onSubmit={(event) => {
               event.preventDefault()
@@ -19,7 +24,9 @@ function AddQuestionOrAnswer({ onAdd, buttonText }) {
               setIsAddOpen(false)
             }}
           >
+            <label htmlFor="post">Write your post here:</label>
             <textarea
+              id="post"
               value={questionInput}
               onChange={(event) => setQuestionInput(event.target.value)}
             />
@@ -27,7 +34,12 @@ function AddQuestionOrAnswer({ onAdd, buttonText }) {
           </form>
         </>
       ) : (
-        <button onClick={() => setIsAddOpen(true)}>+</button>
+        <button
+          aria-label="expand submission form"
+          onClick={() => setIsAddOpen(true)}
+        >
+          +
+        </button>
       )}
     </>
   )

@@ -57,12 +57,17 @@ function Settings() {
       </Head>
       <h1>Settings</h1>
       <form>
+        <label htmlFor="name-input">Your current display name:</label>
         <input
+          id="name-input"
           type="text"
+          disabled={storage.isAnonymous}
           value={storage.isAnonymous ? 'Anonymous' : storage.name}
           onChange={(event) => updateName(event.target.value)}
         />
+        <label htmlFor="hide-name">Hide your name:</label>
         <input
+          id="hide-name"
           type="checkbox"
           checked={storage.isAnonymous ? 'on' : false}
           onChange={toggleAnonymous}
