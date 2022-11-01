@@ -33,7 +33,7 @@ function QuestionDetailPage() {
               <li key={id}>
                 <p>{answer}</p>
                 <span>{submitter}</span>
-                <span>{submissionDate}</span>
+                <span>{new Date(submissionDate).toLocaleString()}</span>
               </li>
             ),
           )}

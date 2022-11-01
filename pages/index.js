@@ -34,7 +34,7 @@ function LandingPage() {
                     <span>{closed && ' - Closed.'}</span>
                   </p>
                   <span>{submitter}</span>
-                  <span>{submissionDate}</span>
+                  <span>{new Date(submissionDate).toLocaleString()}</span>
                 </Link>
               </li>
             ),
