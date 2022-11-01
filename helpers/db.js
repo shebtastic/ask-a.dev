@@ -39,7 +39,12 @@ const projectionWithoutAnswers = {
 }
 const projectionWithAnswers = {
   ...projectionWithoutAnswers,
-  answers: true,
+  answers: {
+    id: true,
+    answer: true,
+    submitter: true,
+    submissionDate: true,
+  },
 }
 function projectDBObject(object, projection = projectionWithAnswers) {
   const projected = {}
@@ -78,15 +83,18 @@ async function getQuestionById(id) {
 async function addAnswer(questionId, answer, submitter) {
   await connectMongoose()
 
-  const createdAnswer = await Answer.create({
-    id: crypto.randomUUID(),
-    answer,
-    submitter,
-    submissionDate: new Date().toISOString(),
-  })
   await Question.updateOne(
-    { id: questionId },
-    { $push: { answers: createdAnswer } },
+    { id: questionId, closed: false },
+    {
+      $push: {
+        answers: {
+          id: crypto.randomUUID(),
+          answer,
+          submitter,
+          submissionDate: new Date().toISOString(),
+        },
+      },
+    },
   )
   return getQuestionById(questionId)
 }
@@ -94,9 +102,7 @@ async function addAnswer(questionId, answer, submitter) {
 async function closeQuestion(questionId) {
   await connectMongoose()
 
-  console.log(
-    await Question.updateOne({ id: questionId }, { $set: { closed: true } }),
-  )
+  await Question.updateOne({ id: questionId }, { $set: { closed: true } })
   return getQuestionById(questionId)
 }
 

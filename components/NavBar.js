@@ -2,7 +2,6 @@ import Link from 'next/link'
 import styled from 'styled-components'
 
 function NavBar({ location }) {
-  console.log(location)
   return (
     <nav>
       <ul>

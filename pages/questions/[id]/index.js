@@ -30,13 +30,11 @@ function QuestionDetailPage() {
         <ul>
           {question?.answers?.map(
             ({ id, answer, submitter, submissionDate }) => (
-              <>
-                <li key={id}>
-                  <p>{answer}</p>
-                  <span>{submitter}</span>
-                  <span>{submissionDate}</span>
-                </li>
-              </>
+              <li key={id}>
+                <p>{answer}</p>
+                <span>{submitter}</span>
+                <span>{submissionDate}</span>
+              </li>
             ),
           )}
         </ul>
@@ -53,7 +51,12 @@ function QuestionDetailPage() {
             }}
             buttonText="Send answer."
           />
-          <button onClick={() => closeQuestion(question.id)}>
+          <button
+            onClick={async () => {
+              await closeQuestion(question.id)
+              await mutate()
+            }}
+          >
             Close thread.
           </button>
         </>
