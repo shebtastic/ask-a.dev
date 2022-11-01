@@ -20,10 +20,10 @@ const StyledCard = styled.div`
   padding: 2rem 1.5rem;
   margin: 3rem 1rem;
   min-height: 10rem;
-  min-width: 30em;
+  min-width: 20em;
   max-width: 50em;
   border-radius: 2.2rem;
-  box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
+  box-shadow: 2px 7px 20px -5px rgb(0 0 0 / 35%);
   background-color: var(--background-color-second);
   ${({ closed, open }) =>
     (closed &&

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { getItem, nuke, setItem } from '../../helpers/storage'
+import styled from 'styled-components'
 
 const initialState = {
   name: '',
@@ -56,7 +57,7 @@ function Settings() {
         <title>Settings</title>
       </Head>
       <h1>Settings</h1>
-      <form>
+      <Form>
         <label htmlFor="name-input">Your current display name:</label>
         <input
           id="name-input"
@@ -72,7 +73,7 @@ function Settings() {
           checked={storage.isAnonymous ? 'on' : false}
           onChange={toggleAnonymous}
         />
-      </form>
+      </Form>
       <button
         onClick={() => {
           nuke()
@@ -84,5 +85,26 @@ function Settings() {
     </>
   )
 }
+
+const Form = styled.form`
+  display: grid;
+  grid-row-gap: 1em;
+  grid-template-areas: 'name-label name-input' 'hide-label hide-input' 'button button';
+  label:first-of-type {
+    grid-area: name-label;
+  }
+  input:first-of-type {
+    grid-area: name-input;
+  }
+  label:last-of-type {
+    grid-area: hide-label;
+  }
+  input:last-of-type {
+    grid-area: hide-input;
+  }
+  button {
+    grid-area: button;
+  }
+`
 
 export default Settings
