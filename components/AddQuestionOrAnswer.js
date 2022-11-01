@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function AddQuestionOrAnswer({ onAdd, buttonText }) {
+function AddQuestionOrAnswer({ onAdd, buttonText = 'Send.' }) {
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [questionInput, setQuestionInput] = useState('')
 
