@@ -62,15 +62,15 @@ function Settings() {
         <input
           id="name-input"
           type="text"
-          disabled={storage.isAnonymous}
-          value={storage.isAnonymous ? 'Anonymous' : storage.name}
+          disabled={storage?.isAnonymous}
+          value={storage?.isAnonymous ? 'Anonymous' : storage?.name}
           onChange={(event) => updateName(event.target.value)}
         />
         <label htmlFor="hide-name">Hide your name:</label>
         <input
           id="hide-name"
           type="checkbox"
-          checked={storage.isAnonymous ? 'on' : false}
+          checked={storage?.isAnonymous ? 'on' : false}
           onChange={toggleAnonymous}
         />
       </Form>
